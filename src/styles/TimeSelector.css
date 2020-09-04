@@ -1,0 +1,24 @@
+.time-selector {
+    padding: 10px;
+}
+
+button.time {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 16px;
+    display: inline-block;
+    background: inherit;
+    color: white;
+    border: none;
+}
+
+button.selected {
+    color: #00b800;
+}
+
+button.time:disabled {
+    color: #a5a2a2;
+}
+
+button.selected:disabled {
+    color: #028102;
+}
