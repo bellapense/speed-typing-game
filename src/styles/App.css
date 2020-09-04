@@ -48,3 +48,26 @@ textarea:disabled {
   cursor: not-allowed;
 }
 
+#game-display {
+  font-family: 'Press Start 2P', cursive;
+  border: 3px solid black;
+  width: 90%;
+  max-width: 500px;
+  resize: none;
+  margin: 0 auto;
+  outline: none;
+  height: 200px;
+  background: #00b800;
+  padding: 10px;
+}
+
+#the-word {
+  text-align: center;
+  font-size: 3em;
+  font-weight: bold;
+  color: black;
+}
+
+.matched {
+  color: blue;
+}
