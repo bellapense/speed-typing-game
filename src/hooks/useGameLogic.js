@@ -3,35 +3,22 @@ import {useState, useEffect, useRef} from "react"
 /**
  * All business logic for the typing game.
  *
- * @returns {
- *  {
- *      textareaRef: React.MutableRefObject<null>,
- *      wordCount: number,
- *      handleChange: handleChange,
- *      timeRemaining: number,
- *      updateGameLength: updateGameLength,
- *      text: string,
- *      startGame: startGame,
- *      isTimeRunning: boolean
- *  }}
+ * @returns {{wordCount: number, timeRemaining: number, startGame: startGame, word: string, isTimeRunning: boolean, updateGameLength: updateGameLength}}
  */
 function useGameLogic() {
-    const [text, setText] = useState("")
+    const [word, setWord] = useState("")
     const [gameLength, setGameLength] = useState(10)
     const [timeRemaining, setTimeRemaining] = useState(gameLength)
     const [isTimeRunning, setIsTimeRunning] = useState(false)
     const [wordCount, setWordCount] = useState(0)
 
-    const textareaRef = useRef(null)
+    let randomWords = require('random-words')
 
-    function handleChange(e) {
-        const {value} = e.target
-        setText(value)
-    }
-
-    function calculateWordCount(text) {
-        const wordsArr = text.trim().split(" ")
-        return wordsArr.filter(word => word !== "").length
+    function wordCompleted() {
+        //set word count ++
+        setWordCount(prevWordCount => prevWordCount + 1)
+        //set word to new word
+        setWord(randomWords().toUpperCase())
     }
 
     function updateGameLength(time) {
@@ -42,15 +29,13 @@ function useGameLogic() {
     function startGame() {
         setIsTimeRunning(true)
         setTimeRemaining(gameLength)
-        setText("")
         setWordCount(0)
-        textareaRef.current.disabled = false
-        textareaRef.current.focus()
+        setWord(randomWords().toUpperCase())
     }
 
     function endGame() {
         setIsTimeRunning(false)
-        setWordCount(calculateWordCount(text))
+        //setWordCount(calculateWordCount(text))
     }
 
     useEffect(() => {
@@ -63,7 +48,7 @@ function useGameLogic() {
         }
     }, [timeRemaining, isTimeRunning])
 
-    return {textareaRef, handleChange, text, isTimeRunning, timeRemaining, updateGameLength, startGame, wordCount}
+    return {isTimeRunning, timeRemaining, updateGameLength, startGame, word, wordCompleted, wordCount}
 }
 
 export default useGameLogic

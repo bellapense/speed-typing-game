@@ -6,31 +6,24 @@ import TimeSelector from "./components/TimeSelector"
 import "./styles/App.css"
 
 function App() {
+    //pass in random word
     const {
-        textareaRef,
-        handleChange,
-        text,
         isTimeRunning,
         timeRemaining,
         updateGameLength,
         startGame,
-        wordCount
+        word,
+        wordCompleted,
+        wordCount,
     } = useGameLogic()
-
-    const word = "WORD"  //TODO: Move to logic hook and randomize
 
     return (
         <div>
             <h1>How fast do you type?</h1>
             <GameDisplay
                 word={word}
-            />
-            <textarea
-                hidden={true}
-                onChange={handleChange}
-                value={text}
-                disabled={!isTimeRunning}
-                ref={textareaRef}
+                wordCompleted={wordCompleted}
+                isDisabled={!isTimeRunning}
             />
             <h4>Time remaining: {timeRemaining}</h4>
             <TimeSelector

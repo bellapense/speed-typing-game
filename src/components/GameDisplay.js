@@ -11,17 +11,24 @@ function GameDisplay(props) {
             const key = event.key.toUpperCase()
 
             if (charList.indexOf(key) === -1) return
+
             setCharEntered(key)
         })
     })
 
     useEffect(() => {
-        if (charEntered === charsToMatch[charsMatched.length]) {
+        if (charEntered === charsToMatch[charsMatched.length] && !props.isDisabled) {
             setCharsMatched(prevCharsMatched => [...prevCharsMatched, charEntered])
         }
-
         setCharEntered("")
-    }, [charEntered, charsMatched, charsToMatch])
+    }, [charEntered, charsMatched, charsToMatch, props.isDisabled])
+
+    useEffect(() => {
+        if (charsMatched.length === charsToMatch.length && !props.isDisabled) {
+            props.wordCompleted()
+            setCharsMatched([])
+        }
+    }, [charsMatched, charsToMatch, props])
 
     const word = (charsToMatch.map((char, index) => {
         let isMatched = ""
@@ -32,8 +39,8 @@ function GameDisplay(props) {
     }))
 
     return (
-        <div id="game-display">
-            <p id="the-word">
+        <div id="game-display" className={props.isDisabled ? "disabled" : ""}>
+            <p id="the-word" className={props.isDisabled ? "disabled" : ""}>
                 {word}
             </p>
         </div>
