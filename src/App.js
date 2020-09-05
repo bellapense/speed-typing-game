@@ -6,15 +6,16 @@ import TimeSelector from "./components/TimeSelector"
 import "./styles/App.css"
 
 function App() {
-    //pass in random word
     const {
         isTimeRunning,
         timeRemaining,
         updateGameLength,
+        gameLength,
         startGame,
         word,
         wordCompleted,
         wordCount,
+        displayResults,
     } = useGameLogic()
 
     return (
@@ -24,6 +25,9 @@ function App() {
                 word={word}
                 wordCompleted={wordCompleted}
                 isDisabled={!isTimeRunning}
+                gameLength={gameLength}
+                displayResults={displayResults}
+                wordCount={wordCount}
             />
             <h4>Time remaining: {timeRemaining}</h4>
             <TimeSelector

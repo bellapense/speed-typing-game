@@ -24,25 +24,43 @@ function GameDisplay(props) {
     }, [charEntered, charsMatched, charsToMatch, props.isDisabled])
 
     useEffect(() => {
-        if (charsMatched.length === charsToMatch.length && !props.isDisabled) {
+        if (charsMatched.length === charsToMatch.length && charsToMatch.length !== 0) {
             props.wordCompleted()
             setCharsMatched([])
         }
     }, [charsMatched, charsToMatch, props])
+
+    useEffect(() => {
+        if (props.displayResults === false) {
+            setCharsMatched([])
+        }
+    }, [props.displayResults])
+
 
     const word = (charsToMatch.map((char, index) => {
         let isMatched = ""
         if ((index + 1) <= charsMatched.length) {
             isMatched = "matched"
         }
-        return <span key={index} className={isMatched}>{char}</span>
+        return <span key={char+index} id={char+index} className={isMatched}>{char}</span>
     }))
+
+    let results = null;
+    if (props.displayResults === true) {
+        results = (
+            <span id="results">
+                {props.wordCount} word{props.wordCount > 1 || !props.wordCount ? "s " : " "}
+                typed in {props.gameLength} seconds
+            </span>
+        )
+    }
 
     return (
         <div id="game-display" className={props.isDisabled ? "disabled" : ""}>
             <p id="the-word" className={props.isDisabled ? "disabled" : ""}>
                 {word}
             </p>
+            {results}
         </div>
     )
 }

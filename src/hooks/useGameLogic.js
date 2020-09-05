@@ -1,4 +1,4 @@
-import {useState, useEffect, useRef} from "react"
+import {useState, useEffect} from "react"
 
 /**
  * All business logic for the typing game.
@@ -10,15 +10,15 @@ function useGameLogic() {
     const [gameLength, setGameLength] = useState(10)
     const [timeRemaining, setTimeRemaining] = useState(gameLength)
     const [isTimeRunning, setIsTimeRunning] = useState(false)
+    const [displayResults, setDisplayResults] = useState(false)
     const [wordCount, setWordCount] = useState(0)
 
     let randomWords = require('random-words')
 
     function wordCompleted() {
-        //set word count ++
         setWordCount(prevWordCount => prevWordCount + 1)
-        //set word to new word
-        setWord(randomWords().toUpperCase())
+        const word = randomWords({exactly: 1, maxLength: 8})
+        setWord(word.toString().toUpperCase())
     }
 
     function updateGameLength(time) {
@@ -27,15 +27,17 @@ function useGameLogic() {
     }
 
     function startGame() {
+        setDisplayResults(false)
         setIsTimeRunning(true)
         setTimeRemaining(gameLength)
         setWordCount(0)
-        setWord(randomWords().toUpperCase())
+        const word = randomWords({exactly: 1, maxLength: 8})
+        setWord(word.toString().toUpperCase())
     }
 
     function endGame() {
         setIsTimeRunning(false)
-        //setWordCount(calculateWordCount(text))
+        setDisplayResults(true)
     }
 
     useEffect(() => {
@@ -48,7 +50,10 @@ function useGameLogic() {
         }
     }, [timeRemaining, isTimeRunning])
 
-    return {isTimeRunning, timeRemaining, updateGameLength, startGame, word, wordCompleted, wordCount}
+    return {
+        isTimeRunning, timeRemaining, gameLength, updateGameLength,
+        startGame, word, wordCompleted, wordCount, displayResults
+    }
 }
 
 export default useGameLogic
