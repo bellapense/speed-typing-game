@@ -30,7 +30,7 @@ h1 {
   text-align:center;
 }
 
-textarea {
+#game-display {
   font-family: 'Press Start 2P', cursive;
   border: 3px solid black;
   width: 90%;
@@ -43,8 +43,26 @@ textarea {
   padding: 10px;
 }
 
-textarea:disabled {
+#game-display.disabled {
   background-color: #a5a2a2;
   cursor: not-allowed;
 }
 
+#the-word {
+  text-align: center;
+  font-size: 3em;
+  font-weight: bold;
+  color: black;
+}
+#the-word.disabled {
+  opacity: 50%;
+}
+
+.matched {
+  color: blue;
+}
+
+#results {
+  color: black;
+  font-weight: normal;
+}
