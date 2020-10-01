@@ -4,6 +4,7 @@ The initial structure of this React app was completed during **The React Bootcam
 
 Additional features that I added:
 * Select the length of the game
+* A random word appears on the screen for the player to type, rather than just an empty text-box to type into.
 
 ---
 
