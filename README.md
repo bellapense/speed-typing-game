@@ -6,6 +6,8 @@ Additional features that I added:
 * Select the length of the game
 * A random word appears on the screen for the player to type, rather than just an empty text-box to type into.
 
+The game is currently hosted using GitHub Pages and can be played [here](https://bellapense.github.io/speed-typing-game/).
+
 ---
 
 ~ This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). ~
